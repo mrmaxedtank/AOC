@@ -1,7 +1,5 @@
 #!/usr/bin/python
 
-import os, sys
-
 def position():
 	with open('input.txt') as file:
 		horpos = 0
