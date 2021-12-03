@@ -1,25 +1,59 @@
 #!/usr/bin/python
 
-def position():
+def challenge1():
 	with open('input.txt') as file:
-		horpos = 0
-		depth = 0
-		aim = 0
-		res = 0
+		positions = ["0"] * 12
+		power_consumption = 0
+		gamma_list = ["0"] * 12
+		epsilon_list = ["0"] * 12
+		gamma = ""
+		epsilon = ""
 
-		moves = file.readlines()
+		values = file.readlines()
 
-		for x in moves:
-			move = x.split(' ')
-			if move[0] == "forward":
-				horpos += int(move[1])
-				depth = depth + (aim * int(move[1]))
-			if move[0] == "up":
-				aim -= int(move[1])
-			if move[0] == "down":
-				aim += int(move[1])
+		for num in range(0,12):
+			zero_count = 0
+			one_count = 0
+			for value in values:
+				if value[num] == "0":
+					zero_count += 1
+				if value[num] == "1":
+					one_count += 1
 
-	res = horpos * depth
-	print(res)
+			#Debug
+			#print("Zero_count: " + str(zero_count))
+			#print("One_count: " + str(one_count))
 
-position()
+			if zero_count > one_count:
+				#print("Position " + str(num) + " = 0")
+				positions[num] = "0"
+			else:
+				#print("Position " + str(num) + " = 1")
+				positions[num] = "1"
+
+		for i in range(0,12):
+			gamma_list[i] = positions[i]
+			epsilon_list[i] = flip(positions[i])
+
+		gamma = ''.join(gamma_list)
+		epsilon = ''.join(epsilon_list)
+
+	#Convert binary string to decimal
+	power_consumption = int(gamma,2) * int(epsilon,2)
+
+	print(power_consumption)
+
+def challenge2():
+	print("Not ready yet")
+
+def flip(val):
+	if val == "0":
+		res = "1"
+	if val == "1":
+		res = "0"
+
+	return res
+
+
+challenge1()
+#challenge2()
