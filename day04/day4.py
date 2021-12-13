@@ -29,8 +29,15 @@ def challenge1():
 		check = []
 		for x in range(0,len(numbers)):
 			check.append(numbers[x])
-			for n in range(1,board_num):
-				print(n)
+			for n in range(1,board_num+1):
+				res = check_lines(boards,n,check)
+				if res == True:
+					break
+				res = check_columns(boards,n,check)
+				if res == True:
+					break
+			if res == True:
+				break
 
 def format_line(x):
 	res = []
@@ -44,16 +51,24 @@ def check_lines(b,n,c):
 	for x in range(0,5):
 		print("check_lines")
 		print(n)
-		#res = set(c).issubset(b["board"+str(n)][x])
 		res = set(b["board"+str(n)][x]).issubset(c)
 		print(c)
 		if res == True:
-			break
-	return res
+			print("BREAK op board: " + str(n) + " regel " + str(x))
+			return res
 
 def check_columns(b,n,c):
 	res = False
-
+	for x in range(0,5):
+		for y in range(0,5):
+			print("check_columns")
+			print("x: " + str(x))
+			print("y: " + str(y))
+			res = set(b["board"+str(n)][x][y]).issubset(c)
+			print(c)
+			if res == True:
+				print("BREAK op board: " + str(n) + " column " + str(y))
+				return res
 
 challenge1()
 #challenge2()
